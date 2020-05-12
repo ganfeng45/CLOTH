@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <com.example.stylebook.util.AlwaysMarqueeTextView
+            android:id="@+id/tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="2dp"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:text="温馨提示" >
+        </com.example.stylebook.util.AlwaysMarqueeTextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today"
+            android:layout_marginStart="15dp"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/display_list"
+            >
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="More "
+            android:layout_marginStart="15dp"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/match_hidden">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/onclickvisible"
+        android:clickable="true"
+        android:orientation="horizontal" >
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:layout_marginStart="10dp"
+            />
+        <ImageView
+            android:id="@+id/expand_activities_button"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:src="@drawable/ic_expand_more_black_24dp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:layout_marginEnd="10dp"
+            />
+
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </CalendarView>
+    </ScrollView>
+
+</LinearLayout>

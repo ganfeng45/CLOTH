@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/StyleBook.iml" filepath="$PROJECT_DIR$/StyleBook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StyleBook-master.iml" filepath="$PROJECT_DIR$/StyleBook-master.iml" group="StyleBook-master" />
+      <module fileurl="file://$PROJECT_DIR$/app/StyleBook-master-app.iml" filepath="$PROJECT_DIR$/app/StyleBook-master-app.iml" group="StyleBook-master/app" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>

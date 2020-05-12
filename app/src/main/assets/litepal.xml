@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="closet"></dbname>
+    <version value="8"></version>
+    <list>
+        <mapping class="com.example.stylebook.db.Cloth"></mapping>
+        <mapping class="com.example.stylebook.db.Match"></mapping>
+    </list>
+
+</litepal>

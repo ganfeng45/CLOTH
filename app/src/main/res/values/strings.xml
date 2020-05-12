@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">StyleBook</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">closet</string>
+    <string name="title_notifications">Schedule</string>
+    <string name="title_city">Beijing</string>
+    <string name="title_time">Time</string>
+    <string name="color_picker">Select a color</string>
+    <string-array name="arrayname">
+        　　　　　　<item>item1</item>
+        　　　　　　<item>item2</item>
+        　　　　　　<item>item3</item>
+        　　　　</string-array>
+</resources>

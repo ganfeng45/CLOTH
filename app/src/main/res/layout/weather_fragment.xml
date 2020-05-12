@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/refresh_button"
+            android:background="@drawable/ic_autorenew_black_24dp"
+            />
+        <TextView
+            android:id="@+id/title_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="21sp"
+            android:text="@string/title_city"
+            android:layout_marginTop="5dp"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextClock
+            android:id="@+id/timeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:format24Hour ="HH:mm"
+            android:format12Hour ="hh:mm"
+            android:textColor="@color/material_white"
+            android:textSize="25sp"
+            android:layout_marginStart="10dp"
+            />
+        <TextClock
+            android:id="@+id/dataView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="15dp"
+            android:format24Hour ="yyyy.MM.dd\nEE     a"
+            android:format12Hour ="yyyy.MM.dd\nEE     a"
+            android:textColor="@color/material_white"
+            android:textSize="15sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+        <ImageView
+            android:id="@+id/weather_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            />
+        <TextView
+            android:id="@+id/degree_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="#fff"
+            android:textSize="25sp"
+            android:layout_marginEnd="10dp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="#8000">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:text="预报"
+            android:textColor="#fff"
+            android:textSize="10sp"/>
+
+        <LinearLayout
+            android:id="@+id/forecast_layout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
