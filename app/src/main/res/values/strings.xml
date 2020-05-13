@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StyleBook</string>
+    <string name="app_name">CLOTH</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">closet</string>
     <string name="title_notifications">Schedule</string>

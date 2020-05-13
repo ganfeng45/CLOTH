@@ -7,10 +7,14 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -33,10 +37,16 @@ import com.example.stylebook.db.Cloth;
 import com.example.stylebook.db.Match;
 import com.google.gson.Gson;
 import com.example.stylebook.MainActivity;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.litepal.LitePal;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,6 +61,9 @@ import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.Forecast;
 import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.ForecastBase;
 import interfaces.heweather.com.interfacesmodule.view.HeWeather;
 import io.reactivex.functions.BiFunction;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class HomepageFragment extends Fragment {
@@ -66,10 +79,15 @@ public class HomepageFragment extends Fragment {
     private CardView schedule;
     private ImageView todaymatchleft,todaymatchright;
     private MainActivity mainActivity = (MainActivity) getActivity();
+    String fl_txt;
+    String wea_txt;
+    String local_json;
+    JSONArray dat_forcast;
     @Override
     public View onCreateView(@NonNull  LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.homepage_fragment,container,false);
         this.mcontext=getActivity();
+        sendRequestWithOkHttp();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         weatherLayout = (ScrollView) view.findViewById(R.id.weather_layout);
         titleCity = (TextView) view.findViewById(R.id.title_city);
@@ -82,7 +100,7 @@ public class HomepageFragment extends Fragment {
         todaymatchright.setImageResource(R.drawable.match_default2);
         schedule = (CardView) view.findViewById(R.id.schedule_card);
         refresh = (Button) view.findViewById(R.id.refresh_button);
-        refreshWeather();
+        //refreshWeather();
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,9 +154,13 @@ public class HomepageFragment extends Fragment {
                 if ( Code.OK.getCode().equalsIgnoreCase(weather.getStatus()) ){
                     //此时返回数据
                     titleCity.setText(weather.getBasic().getLocation());
+                    //titleCity.setText("安徽");
                     degreeText.setText(weather.getNow().getTmp()+"°C");
                     mWeatherId=weather.getNow().getCond_txt();
                     chooseIcon(mWeatherId,weatherIcon);
+                    Log.i(TAG, "onSuccess:"+weather.getNow().getTmp()+"°C");
+                    Log.i(TAG, "onSuccess:"+mWeatherId);
+                    Log.i(TAG, "onSuccess:"+titleCity);
                 } else {
                     //在此查看返回数据失败的原因
                     String status = weather.getStatus();
@@ -180,6 +202,77 @@ public class HomepageFragment extends Fragment {
         });
 
     }
+    private void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void run() {
+                try {
+                    // 创建一个OkHttpClient的实例
+                    OkHttpClient client = new OkHttpClient();
+                    // 如果要发送一条HTTP请求，就需要创建一个Request对象
+                    // 可在最终的build()方法之前连缀很多其他方法来丰富这个Request对象
+                    Request request = new Request.Builder()
+                            .url("https://free-api.heweather.net/s6/weather?location=auto_ip&key=2cc82c03e99d4cae8d7001d0ec84a758")
+                            .build();
+                    // 调用OkHttpClient的newCall()方法来创建一个Call对象，并调用execute()方法来发送请求并获取服务器的返回数据
+                    Response response = client.newCall(request).execute();
+                    // 其中Response对象就是服务器返回的数据，将数据转换成字符串
+                    String responseData = response.body().string();
+                    // 将获取到的字符串传入showResponse()方法中进行UI显示
+                    JSONObject myjson= new JSONObject(responseData);
+                    Log.i(TAG, "结果all"+myjson.optJSONArray("HeWeather6"));
+                    JSONArray jsonArray=myjson.optJSONArray("HeWeather6");
+                    JSONObject injson=jsonArray.optJSONObject(0);
+                    Log.i(TAG, "1:"+injson);
+                    JSONObject basic_json=injson.optJSONObject("basic");
+                    JSONObject now_json=injson.optJSONObject("now");
+                    Log.i(TAG, "now:"+now_json);
+                     wea_txt=now_json.optString("cond_txt");
+                     fl_txt=now_json.optString("fl");
+                    Log.i(TAG, "1:"+wea_txt);
+                    Log.i(TAG, "2:"+fl_txt);
+                    local_json=basic_json.optString("parent_city");
+                    Log.i(TAG, "3:"+local_json);
+                    dat_forcast=injson.optJSONArray("daily_forecast");
+                    Log.i(TAG, "4:"+dat_forcast);
+                    handler.sendEmptyMessage(1);
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+                //handler.sendEmptyMessage(1);
+            }
+        }).start();
+    }
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            //super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+                    titleCity.setText(local_json);
+                    //titleCity.setText("安徽");
+                    degreeText.setText(fl_txt+"°C");
+                    //mWeatherId=weather.getNow().getCond_txt();
+                    chooseIcon(wea_txt,weatherIcon);
+                    for (int i = 0;i<dat_forcast.length();i++) {
+                        View view = LayoutInflater.from(mcontext).inflate(R.layout.forecast_item, forecastLayout, false);
+                        TextView dateText = (TextView) view.findViewById(R.id.date_text);
+                        ImageView infoImage = (ImageView) view.findViewById(R.id.info_Image);
+                        TextView maxText = (TextView) view.findViewById(R.id.max_text);
+                        TextView minText = (TextView) view.findViewById(R.id.min_text);
+                        JSONObject tem=dat_forcast.optJSONObject(i);
+                        dateText.setText(tem.optString("date").substring(5));
+                       chooseIcon(tem.optString("cond_txt_d"),infoImage);
+                       maxText.setText(tem.optString("tmp_max"));
+                       minText.setText(tem.optString("tmp_min"));
+                        forecastLayout.addView(view);
+                    }
+
+            }
+        }
+    };
     private void chooseIcon(String mWeatherId,ImageView weatherIcon){
         switch (mWeatherId){
             case "晴":

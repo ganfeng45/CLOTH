@@ -45,6 +45,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.example.stylebook.db.Cloth;
 import com.example.stylebook.db.Match;
 import com.example.stylebook.service.AutoUpdateService;
+import com.example.stylebook.util.LocationUtils;
 import com.google.gson.Gson;
 
 import org.litepal.LitePal;
