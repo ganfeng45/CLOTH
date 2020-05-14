@@ -67,13 +67,15 @@ public class ClothChildActivity extends AppCompatActivity {
             textSeason.setText(showSeason(cloths.get(0).getSeason()));
             TextView buyTime = (TextView) findViewById(R.id.text_date_picker);
             String calendar = cloths.get(0).getBuyDate();
+            String tempwen= String.valueOf(cloths.get(0).getTemprature());
             Log.i(TAG, "购买时间"+calendar);
             Log.i(TAG, "onCreate:测试5");
             TextView textType = (TextView) findViewById(R.id.spinner_type);
             textType.setText(cloths.get(0).getType());
             TextView textTem = (TextView) findViewById(R.id.spinner_temprature);
-            //textType.setText(cloths.get(0).getTemprature());
+            Log.i(TAG, "onCreate:"+cloths.get(0).getTemprature());
             buyTime.setText(calendar);
+            textTem.setText(tempwen);
             Bitmap bitmap= BitmapFactory.decodeByteArray(cloths.get(0).getBitmapimg(),0,cloths.get(0).getBitmapimg().length);
             Log.i(TAG, "onCreate:"+bitmap);
             clothImageView.setImageBitmap(bitmap);

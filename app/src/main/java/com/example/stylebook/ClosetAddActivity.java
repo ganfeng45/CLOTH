@@ -208,6 +208,7 @@ public class ClosetAddActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cloth.setTemprature(position+1);
+                Log.i(TAG, "温度"+position);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {

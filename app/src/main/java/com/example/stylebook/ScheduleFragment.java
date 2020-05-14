@@ -11,6 +11,8 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -67,8 +69,8 @@ public class ScheduleFragment extends Fragment {
 
     //today为今日首页推荐搭配
     private Match[] today = {
-            new Match("上衣", R.drawable.match_default1),
-            new Match("下衣", R.drawable.match_default2),
+            new Match("推荐1", R.drawable.match_default1),
+            new Match("推荐2", R.drawable.match_default2),
     };
     //more按钮展开后内容
     private Match[] more = {
@@ -138,6 +140,8 @@ public class ScheduleFragment extends Fragment {
             }
         }
     };
+
+
 
     //动画不用看
     private void animateOpen(View v) {

@@ -2,7 +2,10 @@ package com.example.stylebook.db;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,9 @@ import com.example.stylebook.ClothParentActivity;
 import com.example.stylebook.MatchActivity;
 import com.example.stylebook.R;
 
+import org.litepal.LitePal;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 //推荐系统recycleview适配器
@@ -25,6 +31,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>{
     private Context mContext;
 
     private List<Match> mMatchList;
+    private List<Cloth> clothList = new ArrayList<>();
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView matchImage;
@@ -72,9 +80,25 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>{
     //绑定数据
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Match match = mMatchList.get(position);
-        holder.matchName.setText(match.getName());
-        Glide.with(mContext).load(match.getImageId()).into(holder.matchImage);
+        initCloth();
+        int max=clothList.size();
+        Random random=new Random();
+        int rand=random.nextInt(max);
+        Bitmap bitmap= BitmapFactory.decodeByteArray(clothList.get(rand).getBitmapimg(),0,clothList.get(rand).getBitmapimg().length);
+        //Glide.with(mContext).load(match.getImageId()).into(holder.matchImage);
+        holder.matchImage.setImageBitmap(bitmap);
+    }
+    private void initCloth(){
+        try{
+            clothList = LitePal.findAll(Cloth.class);
+            //clothList = LitePal.findAll(Cloth.class);
+            for (Cloth s:clothList){
+                Log.i(TAG, "类型:"+s.getType()+";-----name:"+s.getName());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     @Override
     public int getItemCount() {

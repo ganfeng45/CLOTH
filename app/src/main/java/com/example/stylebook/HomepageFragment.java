@@ -213,7 +213,7 @@ public class HomepageFragment extends Fragment {
                     // 如果要发送一条HTTP请求，就需要创建一个Request对象
                     // 可在最终的build()方法之前连缀很多其他方法来丰富这个Request对象
                     Request request = new Request.Builder()
-                            .url("https://free-api.heweather.net/s6/weather?location=auto_ip&key=2cc82c03e99d4cae8d7001d0ec84a758")
+                            .url("https://free-api.heweather.net/s6/weather?location=anqing&key=2cc82c03e99d4cae8d7001d0ec84a758")
                             .build();
                     // 调用OkHttpClient的newCall()方法来创建一个Call对象，并调用execute()方法来发送请求并获取服务器的返回数据
                     Response response = client.newCall(request).execute();
